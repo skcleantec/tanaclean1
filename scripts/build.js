@@ -33,6 +33,13 @@ function stripExport(src, fnName) {
     .replace(/^import .+;\n/gm, '');
 }
 
+/** index.html 의 SEO 메타 블록 재사용 (description ~ preconnect 직전) */
+function getSeoHead() {
+  const index = read(path.join(ROOT, 'index.html'));
+  const match = index.match(/<meta name="description"[\s\S]*?(?=<link rel="preconnect")/);
+  return match ? match[0].trim() : '';
+}
+
 function build() {
   ensureDir(DIST);
   copyDir(path.join(ROOT, 'assets'), path.join(DIST, 'assets'));
@@ -56,6 +63,7 @@ function build() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>타나클린 | 수도권 프리미엄 입주청소</title>
+  ${getSeoHead()}
   <style>
 ${read(path.join(ROOT, 'css', 'fonts.css'))}
 ${read(path.join(ROOT, 'css', 'base.css'))}
