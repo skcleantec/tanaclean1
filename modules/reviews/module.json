@@ -1,0 +1,6 @@
+{
+  "id": "reviews",
+  "order": 10,
+  "navLabel": "후기",
+  "anchor": "#reviews"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "example",
+  "order": 99,
+  "navLabel": "새 메뉴",
+  "anchor": "#example",
+  "_comment": "이 폴더를 복사해 새 섹션을 만드세요. order와 id를 고유값으로 변경."
+}

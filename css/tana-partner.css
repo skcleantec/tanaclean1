@@ -1,0 +1,87 @@
+/* 타나세제 공식 파트너 로고 (Tana Professional · Green Care Professional) */
+.tana-partner-logos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.tana-partner-logos__wrap {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px 20px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  line-height: 0;
+}
+
+.tana-partner-logos img {
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.tana-partner-logos--lg img {
+  max-height: 52px;
+}
+
+.tana-partner-logos--md img {
+  max-height: 44px;
+}
+
+.tana-partner-logos--sm img {
+  max-height: 26px;
+}
+
+.tana-partner-logos--sm .tana-partner-logos__wrap {
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.tana-partner-logos__caption {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.5;
+}
+
+.tana-partner-logos--on-light .tana-partner-logos__caption {
+  color: #6B6B6B;
+}
+
+.tana-partner-logos--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.tana-partner-logos--inline .tana-partner-logos__caption {
+  display: none;
+}
+
+.tana-partner-visual {
+  flex: 0 1 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: 0 auto;
+}
+
+.tana-partner-products {
+  width: 100%;
+  max-width: 320px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  line-height: 0;
+}
+
+.tana-partner-products img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  object-fit: cover;
+}
