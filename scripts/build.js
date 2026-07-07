@@ -94,6 +94,7 @@ function build() {
 ${read(path.join(ROOT, 'css', 'fonts.css'))}
 ${read(path.join(ROOT, 'css', 'base.css'))}
 ${read(path.join(ROOT, 'modules', 'nav', 'nav.css'))}
+${read(path.join(ROOT, 'modules', 'why', 'why.css'))}
 ${read(path.join(ROOT, 'css', 'tana-partner.css'))}
   </style>
 </head>
