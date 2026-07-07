@@ -79,8 +79,9 @@ function build() {
     stripExport(read(path.join(ROOT, 'js', 'modules', 'reviews.js')), 'initReviews'),
     stripExport(read(path.join(ROOT, 'js', 'modules', 'faq.js')), 'initFaq'),
     stripExport(read(path.join(ROOT, 'js', 'modules', 'animations.js')), 'initAnimations'),
+    stripExport(read(path.join(ROOT, 'js', 'modules', 'services.js')), 'initServicesHighlight'),
     buildQuoteLinksInit(),
-    'initNav(); initHeroSlider(); initReviews(); initFaq(); initAnimations(); initQuoteLinks();',
+    'initNav(); initHeroSlider(); initReviews(); initFaq(); initAnimations(); initQuoteLinks(); initServicesHighlight();',
   ].join('\n');
 
   const html = `<!DOCTYPE html>
@@ -95,6 +96,7 @@ ${read(path.join(ROOT, 'css', 'fonts.css'))}
 ${read(path.join(ROOT, 'css', 'base.css'))}
 ${read(path.join(ROOT, 'modules', 'nav', 'nav.css'))}
 ${read(path.join(ROOT, 'modules', 'trust-compare', 'trust-compare.css'))}
+${read(path.join(ROOT, 'modules', 'services', 'services.css'))}
 ${read(path.join(ROOT, 'css', 'tana-partner.css'))}
   </style>
 </head>

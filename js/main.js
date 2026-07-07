@@ -5,6 +5,7 @@ import { initReviews } from './modules/reviews.js';
 import { initFaq } from './modules/faq.js';
 import { initAnimations } from './modules/animations.js';
 import { initQuoteLinks } from './modules/quote-links.js';
+import { initServicesHighlight } from './modules/services.js';
 
 async function boot() {
   try {
@@ -15,6 +16,7 @@ async function boot() {
     initFaq();
     initAnimations();
     initQuoteLinks();
+    initServicesHighlight();
   } catch (err) {
     console.error('[타나클린]', err);
     const root = document.getElementById('app-root');
