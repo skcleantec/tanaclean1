@@ -3,7 +3,7 @@
 export const SITE = {
   brand: '타나클린',
   tagline: '수도권 프리미엄 입주청소',
-  url: 'https://tanaclean1-production.up.railway.app',
+  url: 'https://tanaclean.co.kr',
   phone: '010-9266-9404',
   tel: 'tel:010-9266-9404',
   business: {

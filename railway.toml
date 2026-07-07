@@ -5,3 +5,6 @@ builder = "NIXPACKS"
 startCommand = "npm start"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
+
+# 프로덕션 도메인: https://tanaclean.co.kr (Railway Networking에서 설정)
+# GitHub: skcleantec/tanaclean1
