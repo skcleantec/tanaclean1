@@ -8104,41 +8104,46 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
 }
 
-#why {
+#trust-compare {
   position: relative;
   overflow: hidden;
 }
 
-#why .why-section-bg {
+#trust-compare .trust-compare-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
 }
 
-#why .why-section-bg img {
+#trust-compare .trust-compare-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 35%;
-  opacity: 0.32;
+  opacity: 0.58;
 }
 
-#why .why-section-bg::after {
+#trust-compare .trust-compare-bg::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(241, 248, 241, 0.88) 0%,
-    rgba(241, 248, 241, 0.78) 45%,
-    rgba(241, 248, 241, 0.92) 100%
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(255, 255, 255, 0.48) 50%,
+    rgba(255, 255, 255, 0.68) 100%
   );
 }
 
-#why .why-section-inner {
+#trust-compare .trust-compare-inner {
   position: relative;
   z-index: 1;
+}
+
+#trust-compare .trust-compare-card--muted {
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(6px);
 }
 
 /* 타나세제 공식 파트너 로고 (Tana Professional · Green Care Professional) */
@@ -8363,13 +8368,8 @@
     </div>
   </div>
 </section>
-<link rel="stylesheet" href="modules/why/why.css">
-
 <section id="why" style="background:#F1F8F1; padding:clamp(70px,9vw,120px) 0;">
-  <div class="why-section-bg" aria-hidden="true">
-    <img src="assets/images/why-bg-training.png" alt="">
-  </div>
-  <div class="why-section-inner" style="max-width:1200px; margin:0 auto; padding:0 28px;">
+  <div style="max-width:1200px; margin:0 auto; padding:0 28px;">
     <div data-reveal="" style="text-align:center; max-width:640px; margin:0 auto 60px;">
       <div style="color:#B71C1C; font-size:.85rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-bottom:16px;">Why TANA CLEAN</div>
       <h2 style="font-family:'Noto Serif KR',serif; font-weight:700; font-size:clamp(1.8rem,3.4vw,2.6rem); color:#212121; line-height:1.35; margin-bottom:18px;">기술이 다르면 결과가 다릅니다</h2>
@@ -8443,15 +8443,20 @@
     </div>
   </div>
 </section>
-<section style="background:#fff; padding:clamp(70px,9vw,120px) 0;">
-  <div style="max-width:1080px; margin:0 auto; padding:0 28px;">
+<link rel="stylesheet" href="modules/trust-compare/trust-compare.css">
+
+<section id="trust-compare" style="background:#fff; padding:clamp(70px,9vw,120px) 0;">
+  <div class="trust-compare-bg" aria-hidden="true">
+    <img src="assets/images/why-bg-training.png" alt="">
+  </div>
+  <div class="trust-compare-inner" style="max-width:1080px; margin:0 auto; padding:0 28px;">
     <div data-reveal="" style="text-align:center; max-width:640px; margin:0 auto 56px;">
       <div style="color:#B71C1C; font-size:.85rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-bottom:16px;">The Difference</div>
       <h2 style="font-family:'Noto Serif KR',serif; font-weight:700; font-size:clamp(1.8rem,3.4vw,2.6rem); color:#212121; line-height:1.35; margin-bottom:16px;">타나클린이 다른 이유</h2>
       <p style="color:#6B6B6B; font-size:1.02rem; line-height:1.8; font-weight:300;">무허가 개인업자와 정식 전문업체, 새 집을 맡기기 전 반드시 확인하세요.</p>
     </div>
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px;">
-      <div data-reveal="" style="background:#F1F8F1; border:1px solid #E3E8E3; border-radius:22px; padding:36px 32px;">
+      <div data-reveal="" class="trust-compare-card--muted" style="background:#F1F8F1; border:1px solid #E3E8E3; border-radius:22px; padding:36px 32px;">
         <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
           <span style="width:40px; height:40px; border-radius:50%; background:#E3E8E3; display:flex; align-items:center; justify-content:center; color:#6B6B6B; font-size:1.2rem;">✕</span>
           <h3 style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:1.25rem; color:#6B6B6B;">무허가 개인업자</h3>
@@ -8481,6 +8486,7 @@
     </div>
   </div>
 </section>
+
 <section id="services" style="background:#F1F8F1; padding:clamp(70px,9vw,120px) 0;">
   <div style="max-width:1200px; margin:0 auto; padding:0 28px;">
     <div data-reveal="" style="text-align:center; max-width:620px; margin:0 auto 58px;">
