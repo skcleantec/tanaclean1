@@ -4,6 +4,7 @@ import { initHeroSlider } from './modules/hero.js';
 import { initReviews } from './modules/reviews.js';
 import { initFaq } from './modules/faq.js';
 import { initAnimations } from './modules/animations.js';
+import { initQuoteLinks } from './modules/quote-links.js';
 
 async function boot() {
   try {
@@ -13,6 +14,7 @@ async function boot() {
     initReviews();
     initFaq();
     initAnimations();
+    initQuoteLinks();
   } catch (err) {
     console.error('[타나클린]', err);
     const root = document.getElementById('app-root');

@@ -6,6 +6,8 @@ export const SITE = {
   url: 'https://tanaclean.co.kr',
   phone: '010-9266-9404',
   tel: 'tel:010-9266-9404',
+  /** 청소비서 견적 폼 URL — 받으면 여기에만 붙여넣기 (새 창 열림) */
+  quoteUrl: '',
   business: {
     name: '타나클린',
     ceo: '이민숙',

@@ -40,6 +40,31 @@ function getSeoHead() {
   return match ? match[0].trim() : '';
 }
 
+function getSiteQuoteConfig() {
+  const config = read(path.join(ROOT, 'js', 'config.js'));
+  const quoteUrl = (config.match(/quoteUrl:\s*['"]([^'"]*)['"]/) || [, ''])[1];
+  const tel = (config.match(/tel:\s*['"]([^'"]*)['"]/) || [, 'tel:010-9266-9404'])[1];
+  return { quoteUrl: quoteUrl.trim(), tel };
+}
+
+function buildQuoteLinksInit() {
+  const { quoteUrl, tel } = getSiteQuoteConfig();
+  return `function initQuoteLinks() {
+  var url = ${JSON.stringify(quoteUrl)};
+  document.querySelectorAll('[data-quote-link]').forEach(function(el) {
+    if (url) {
+      el.href = url;
+      el.target = '_blank';
+      el.rel = 'noopener noreferrer';
+    } else {
+      el.href = ${JSON.stringify(tel)};
+      el.removeAttribute('target');
+      el.removeAttribute('rel');
+    }
+  });
+}`;
+}
+
 function build() {
   ensureDir(DIST);
   copyDir(path.join(ROOT, 'assets'), path.join(DIST, 'assets'));
@@ -54,7 +79,8 @@ function build() {
     stripExport(read(path.join(ROOT, 'js', 'modules', 'reviews.js')), 'initReviews'),
     stripExport(read(path.join(ROOT, 'js', 'modules', 'faq.js')), 'initFaq'),
     stripExport(read(path.join(ROOT, 'js', 'modules', 'animations.js')), 'initAnimations'),
-    'initNav(); initHeroSlider(); initReviews(); initFaq(); initAnimations();',
+    buildQuoteLinksInit(),
+    'initNav(); initHeroSlider(); initReviews(); initFaq(); initAnimations(); initQuoteLinks();',
   ].join('\n');
 
   const html = `<!DOCTYPE html>
