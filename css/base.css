@@ -1,7 +1,8 @@
 
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; }
-  body { font-family:'Noto Sans KR',sans-serif; color:#212121; background:#1B5E20; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  body { font-family:'Noto Sans KR',sans-serif; color:#212121; background:#1B5E20; -webkit-font-smoothing:antialiased; overflow-x:hidden; word-break:keep-all; }
+  #app-root { width:100%; max-width:100%; overflow-x:clip; }
   a { color:#1B5E20; text-decoration:none; }
   a:hover { color:#B71C1C; }
   ::selection { background:rgba(183,28,28,0.22); }

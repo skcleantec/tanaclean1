@@ -8047,7 +8047,8 @@
 
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; }
-  body { font-family:'Noto Sans KR',sans-serif; color:#212121; background:#1B5E20; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  body { font-family:'Noto Sans KR',sans-serif; color:#212121; background:#1B5E20; -webkit-font-smoothing:antialiased; overflow-x:hidden; word-break:keep-all; }
+  #app-root { width:100%; max-width:100%; overflow-x:clip; }
   a { color:#1B5E20; text-decoration:none; }
   a:hover { color:#B71C1C; }
   ::selection { background:rgba(183,28,28,0.22); }
@@ -8104,6 +8105,113 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
 }
 
+/* ── Mobile drawer (half-screen) ── */
+.tc-mobilemenu {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  display: none;
+  pointer-events: none;
+}
+
+.tc-mobilemenu.is-open {
+  pointer-events: auto;
+}
+
+.tc-mobilemenu__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.38);
+  opacity: 0;
+  transition: opacity 0.32s ease;
+}
+
+.tc-mobilemenu.is-open .tc-mobilemenu__backdrop {
+  opacity: 1;
+}
+
+.tc-mobilemenu__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(50vw, 320px);
+  max-width: 50%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: max(12px, env(safe-area-inset-top, 0px)) 14px calc(14px + env(safe-area-inset-bottom, 0px));
+  background: rgba(27, 94, 32, 0.98);
+  backdrop-filter: blur(16px);
+  box-shadow: -8px 0 28px rgba(0, 0, 0, 0.18);
+  transform: translateX(100%);
+  transition: transform 0.32s ease;
+}
+
+.tc-mobilemenu.is-open .tc-mobilemenu__panel {
+  transform: translateX(0);
+}
+
+.tc-mobilemenu__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.tc-mobilemenu__title {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.tc-mobilemenu__close {
+  background: none;
+  border: 0;
+  color: #fff;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 2px;
+}
+
+.tc-mobilemenu__links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 4px;
+}
+
+.tc-mobilemenu__links a {
+  color: #fff;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.35;
+  padding: 8px 4px;
+  text-decoration: none;
+}
+
+.tc-mobilemenu__links a:active {
+  color: #a5d6a7;
+}
+
+.tc-mobilemenu__cta {
+  margin-top: auto;
+  text-align: center;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #fff;
+  color: #1b5e20;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-decoration: none;
+}
+
 #trust-compare {
   position: relative;
   overflow: hidden;
@@ -8144,6 +8252,173 @@
 #trust-compare .trust-compare-card--muted {
   background: rgba(255, 255, 255, 0.88) !important;
   backdrop-filter: blur(6px);
+}
+
+#services .services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+#services .service-card {
+  background: #fff;
+  border: 1px solid #E3E8E3;
+  border-radius: 22px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition:
+    background 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.6s ease,
+    box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#services .service-card.is-active {
+  background: #1B5E20;
+  border-color: #1B5E20;
+  box-shadow: 0 30px 60px rgba(27, 94, 32, 0.25);
+  transform: scale(1.03);
+  z-index: 1;
+}
+
+#services .service-card__bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #B71C1C, #E53935);
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+#services .service-card.is-active .service-card__bar {
+  opacity: 1;
+}
+
+#services .service-card__badge {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #B71C1C;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  z-index: 3;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+#services .service-card.is-active .service-card__badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#services .service-card__img-wrap {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+#services .service-card__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+#services .service-card.is-active .service-card__img-wrap img {
+  transform: scale(1.04);
+}
+
+#services .service-card__img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(27, 94, 32, 0) 0%, rgba(27, 94, 32, 0.92) 100%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: 1;
+}
+
+#services .service-card.is-active .service-card__img-wrap::after {
+  opacity: 1;
+}
+
+#services .service-card__body {
+  padding: 32px 32px 40px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+#services .service-card.is-active .service-card__body {
+  padding-top: 12px;
+}
+
+#services .service-card__title {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 600;
+  font-size: 1.35rem;
+  margin-bottom: 14px;
+  color: #212121;
+  transition: color 0.5s ease;
+}
+
+#services .service-card.is-active .service-card__title {
+  color: #fff;
+}
+
+#services .service-card__desc {
+  color: #6B6B6B;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 24px;
+  flex: 1;
+  transition: color 0.5s ease;
+}
+
+#services .service-card.is-active .service-card__desc {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+#services .service-card__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+#services .service-card__list li {
+  display: flex;
+  gap: 10px;
+  color: #212121;
+  font-size: 0.92rem;
+  transition: color 0.5s ease;
+}
+
+#services .service-card.is-active .service-card__list li {
+  color: #fff;
+}
+
+#services .service-card__check {
+  color: #B71C1C;
+  transition: color 0.5s ease;
+}
+
+#services .service-card.is-active .service-card__check {
+  color: #A5D6A7;
 }
 
 /* 타나세제 공식 파트너 로고 (Tana Professional · Green Care Professional) */
@@ -8234,6 +8509,571 @@
   object-fit: cover;
 }
 
+/**
+ * 타나클린 랜딩 — 모바일 / 태블릿 / PC 분리 레이아웃
+ * breakpoint: mobile ≤719px · tablet 720–1023px · desktop ≥1024px
+ */
+:root {
+  --tc-gutter: 28px;
+  --tc-gutter-sm: 20px;
+  --tc-gutter-xs: 16px;
+  --tc-nav-h: 72px;
+}
+
+#app-root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+#app-root > header,
+#app-root > section,
+#app-root > footer,
+#app-root > nav,
+#app-root > a[data-floatcta],
+#app-root > div[data-mobilebar] {
+  width: 100%;
+  max-width: 100%;
+}
+
+.tc-wrap {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* ── Nav ── */
+.tc-nav-inner {
+  gap: 12px;
+}
+
+.tc-nav-logo img {
+  height: 46px;
+  max-width: min(180px, 46vw);
+  width: auto;
+}
+
+/* ── Hero ── */
+.tc-hero-inner {
+  gap: 56px;
+}
+
+.tc-hero-col {
+  flex: 1 1 440px;
+  min-width: 0;
+}
+
+.tc-hero-col--visual {
+  flex: 1 1 420px;
+}
+
+.tc-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.tc-hero-actions a {
+  flex: 1 1 auto;
+  justify-content: center;
+  min-width: 0;
+}
+
+.tc-hero-stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: clamp(8px, 2.5vw, 44px);
+  width: 100%;
+}
+
+.tc-hero-stat {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+}
+
+.tc-hero-stat__value {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700;
+  color: #fff;
+  font-size: clamp(1.2rem, 5.2vw, 2rem);
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.tc-hero-stat__label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: clamp(0.62rem, 2.65vw, 0.82rem);
+  line-height: 1.35;
+  margin-top: 4px;
+  word-break: keep-all;
+}
+
+.tc-hero-stat-divider {
+  flex-shrink: 0;
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ── Why MOU stats ── */
+.tc-why-stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: clamp(8px, 2.5vw, 40px);
+  width: 100%;
+}
+
+.tc-why-stat {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+}
+
+.tc-why-stat__value {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700;
+  color: #A5D6A7;
+  font-size: clamp(1.2rem, 5.2vw, 2rem);
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.tc-why-stat__label {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: clamp(0.58rem, 2.5vw, 0.82rem);
+  line-height: 1.35;
+  margin-top: 4px;
+  word-break: keep-all;
+}
+
+.tc-why-stat-divider {
+  flex-shrink: 0;
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.tc-hero-float {
+  position: absolute;
+  z-index: 3;
+}
+
+.tc-hero-float--brand {
+  left: 8px;
+  bottom: -12px;
+}
+
+.tc-hero-float--rating {
+  right: 8px;
+  top: -12px;
+}
+
+/* ── Process steps ── */
+.tc-process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.tc-process-step {
+  min-width: 0;
+  text-align: center;
+  border-radius: 18px;
+  padding: 26px 16px;
+}
+
+/* ── Footer ── */
+.tc-footer-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tc-footer-col {
+  min-width: 0;
+}
+
+.tc-footer-col__title {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 18px;
+}
+
+.tc-footer-col__links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tc-footer-col__links a {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.tc-footer-phone {
+  color: #a5d6a7;
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-decoration: none;
+  display: block;
+}
+
+.tc-footer-hours {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.84rem;
+  line-height: 1.8;
+  font-weight: 300;
+  margin: 12px 0 0;
+}
+
+.tc-footer-legal {
+  padding-top: 28px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  line-height: 1.9;
+  font-weight: 300;
+}
+
+/* ── Services (mobile card scale off) ── */
+@media (max-width: 719px) {
+  :root {
+    --tc-gutter: var(--tc-gutter-xs);
+    --tc-nav-h: 64px;
+  }
+
+  .tc-wrap {
+    padding-left: var(--tc-gutter-xs) !important;
+    padding-right: var(--tc-gutter-xs) !important;
+  }
+
+  .tc-nav-inner {
+    padding-left: var(--tc-gutter-xs) !important;
+    padding-right: var(--tc-gutter-xs) !important;
+  }
+
+  .tc-nav-logo img {
+    height: 36px;
+  }
+
+  [data-nav] {
+    padding-top: max(10px, env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: 10px !important;
+  }
+
+  .tc-hero-inner {
+    padding: calc(var(--tc-nav-h) + 28px) var(--tc-gutter-xs) 56px !important;
+    gap: 32px !important;
+  }
+
+  .tc-hero-col,
+  .tc-hero-col--visual {
+    flex: 1 1 100%;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .tc-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tc-hero-actions a {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tc-hero-stats {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: clamp(4px, 1.8vw, 12px);
+  }
+
+  .tc-hero-stat__value {
+    font-size: clamp(1.05rem, 6.2vw, 1.55rem);
+  }
+
+  .tc-hero-stat__label {
+    font-size: clamp(0.58rem, 2.45vw, 0.72rem);
+  }
+
+  .tc-why-stat__value {
+    font-size: clamp(1rem, 5.8vw, 1.45rem);
+  }
+
+  .tc-why-stat__label {
+    font-size: clamp(0.52rem, 2.2vw, 0.68rem);
+  }
+
+  .tc-why-stats {
+    gap: clamp(4px, 1.6vw, 10px);
+  }
+
+  .tc-hero-float--brand,
+  .tc-hero-float--rating {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    margin-top: 12px;
+    width: fit-content;
+    max-width: 100%;
+    animation: none !important;
+  }
+
+  .tc-hero-col--visual {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tc-hero-col--visual > div:first-child {
+    width: 100%;
+  }
+
+  .tc-process-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .tc-process-step {
+    padding: 20px 16px;
+  }
+
+  #services .services-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  #services .service-card.is-active {
+    transform: none;
+  }
+
+  #services .service-card__body {
+    padding: 24px 20px 28px;
+  }
+
+  #trust-compare [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  #pricing [style*="grid-template-columns"],
+  #extra-fees [style*="grid-template-columns"],
+  #why [style*="grid-template-columns"],
+  #tana [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .tc-footer {
+    padding: 40px 0 28px !important;
+  }
+
+  .tc-footer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px 8px;
+    padding-bottom: 24px;
+  }
+
+  .tc-footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .tc-footer-brand img[alt*="타나클린"] {
+    height: 44px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .tc-footer-brand > p {
+    font-size: 0.82rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .tc-footer-brand .tana-partner-logos {
+    margin-top: 12px !important;
+  }
+
+  .tc-footer-col__title {
+    font-size: clamp(0.72rem, 3.1vw, 0.88rem);
+    margin-bottom: 7px;
+  }
+
+  .tc-footer-col__links {
+    gap: 5px;
+  }
+
+  .tc-footer-col__links a {
+    font-size: clamp(0.64rem, 2.55vw, 0.76rem);
+    line-height: 1.35;
+  }
+
+  .tc-footer-phone {
+    font-size: clamp(0.76rem, 3.2vw, 0.98rem);
+    line-height: 1.2;
+    word-break: keep-all;
+  }
+
+  .tc-footer-hours {
+    font-size: clamp(0.56rem, 2.25vw, 0.7rem);
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+
+  .tc-footer-legal {
+    padding-top: 18px;
+    font-size: 0.7rem;
+    line-height: 1.6;
+  }
+
+  .tc-tana-row {
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+
+  .tc-mobilemenu__panel {
+    width: min(52vw, 300px);
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .tc-mobilemenu__links a {
+    font-size: clamp(0.78rem, 3.4vw, 0.86rem);
+    padding: 7px 2px;
+  }
+
+  .tc-mobilemenu__cta {
+    font-size: clamp(0.76rem, 3.2vw, 0.82rem);
+    padding: 9px 12px;
+  }
+
+  body {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1023px) {
+  :root {
+    --tc-gutter: var(--tc-gutter-sm);
+  }
+
+  .tc-wrap {
+    padding-left: var(--tc-gutter-sm) !important;
+    padding-right: var(--tc-gutter-sm) !important;
+  }
+
+  .tc-nav-inner {
+    padding-left: var(--tc-gutter-sm) !important;
+    padding-right: var(--tc-gutter-sm) !important;
+  }
+
+  .tc-hero-inner {
+    padding: 108px var(--tc-gutter-sm) 72px !important;
+    gap: 40px !important;
+  }
+
+  .tc-hero-col,
+  .tc-hero-col--visual {
+    flex: 1 1 calc(50% - 20px);
+    min-width: 0;
+  }
+
+  .tc-process-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #services .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tc-footer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px 16px;
+  }
+
+  .tc-footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tc-hero-inner {
+    padding: 120px var(--tc-gutter) 80px !important;
+  }
+
+  .tc-hero-col {
+    flex: 1 1 440px;
+    min-width: 300px;
+  }
+
+  .tc-hero-col--visual {
+    flex: 1 1 420px;
+    min-width: 300px;
+  }
+
+  .tc-hero-stat__value {
+    font-size: 2rem;
+  }
+
+  .tc-hero-stat__label {
+    font-size: 0.82rem;
+  }
+
+  .tc-hero-stats {
+    justify-content: flex-start;
+    gap: 14px 44px;
+  }
+
+  .tc-hero-stat {
+    flex: 0 1 auto;
+    text-align: left;
+  }
+
+  .tc-why-stats {
+    justify-content: flex-start;
+    gap: 28px 40px;
+  }
+
+  .tc-why-stat {
+    flex: 0 1 auto;
+    text-align: left;
+  }
+
+  .tc-why-stat__value {
+    font-size: 2rem;
+  }
+
+  .tc-why-stat__label {
+    font-size: 0.82rem;
+  }
+
+  .tc-hero-float--brand {
+    left: -14px;
+    bottom: -22px;
+  }
+
+  .tc-hero-float--rating {
+    right: -12px;
+    top: -20px;
+  }
+
+  .tc-process-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
   </style>
 </head>
 <body>
@@ -8241,8 +9081,8 @@
 <link rel="stylesheet" href="modules/nav/nav.css">
 
 <nav data-nav style="position:fixed; top:0; left:0; right:0; z-index:1000; transition:background .4s ease, box-shadow .4s ease, padding .3s ease; padding:16px 0;">
-  <div style="max-width:1200px; margin:0 auto; padding:0 28px; display:flex; align-items:center; justify-content:space-between;">
-    <a href="#top" style="display:flex; align-items:center;">
+  <div class="tc-wrap tc-nav-inner" style="max-width:1200px; margin:0 auto; padding:0 28px; display:flex; align-items:center; justify-content:space-between;">
+    <a href="#top" class="tc-nav-logo" style="display:flex; align-items:center; min-width:0;">
       <img src="assets/images/5d1408ea-4fa4-4c70-ac0a-457f30cdb8bd.png" alt="타나클린 입주청소 전문" style="height:46px; width:auto; display:block;">
     </a>
     <div data-navlinks style="display:flex; align-items:center; gap:32px;">
@@ -8254,7 +9094,7 @@
       <a href="#faq" data-navlink>FAQ</a>
       <a href="tel:010-9266-9404" data-nav-cta data-quote-link>무료 견적 받기</a>
     </div>
-    <button data-burger aria-label="메뉴" style="display:none; flex-direction:column; gap:5px; background:none; border:0; cursor:pointer; padding:8px;">
+    <button data-burger aria-label="메뉴" style="display:none; flex-direction:column; gap:5px; background:none; border:0; cursor:pointer; padding:8px; flex-shrink:0;">
       <span style="width:24px; height:2px; border-radius:2px;"></span>
       <span style="width:24px; height:2px; border-radius:2px;"></span>
       <span style="width:24px; height:2px; border-radius:2px;"></span>
@@ -8262,15 +9102,23 @@
   </div>
 </nav>
 
-<div data-mobilemenu style="display:none; position:fixed; inset:0; z-index:1001; background:rgba(27,94,32,0.98); backdrop-filter:blur(20px); flex-direction:column; align-items:center; justify-content:center; gap:8px; opacity:0; transition:opacity .35s ease;">
-  <button data-close aria-label="닫기" style="position:absolute; top:26px; right:26px; background:none; border:0; color:#fff; font-size:2rem; cursor:pointer; line-height:1;">×</button>
-  <a href="#why" data-mlink style="color:#fff; font-family:'Noto Serif KR',serif; font-size:1.6rem; padding:12px;">브랜드</a>
-  <a href="#gallery" data-mlink style="color:#fff; font-family:'Noto Serif KR',serif; font-size:1.6rem; padding:12px;">시공사례</a>
-  <a href="#services" data-mlink style="color:#fff; font-family:'Noto Serif KR',serif; font-size:1.6rem; padding:12px;">서비스</a>
-  <a href="#process" data-mlink style="color:#fff; font-family:'Noto Serif KR',serif; font-size:1.6rem; padding:12px;">진행과정</a>
-  <a href="#reviews" data-mlink style="color:#fff; font-family:'Noto Serif KR',serif; font-size:1.6rem; padding:12px;">후기</a>
-  <a href="#faq" data-mlink style="color:#fff; font-family:'Noto Serif KR',serif; font-size:1.6rem; padding:12px;">FAQ</a>
-  <a href="tel:010-9266-9404" data-mlink data-quote-link style="margin-top:18px; padding:14px 34px; border-radius:999px; background:#fff; color:#1B5E20; font-weight:700; font-size:1.05rem;">무료 견적 받기</a>
+<div data-mobilemenu class="tc-mobilemenu">
+  <div class="tc-mobilemenu__backdrop" data-mobilemenu-backdrop aria-hidden="true"></div>
+  <aside class="tc-mobilemenu__panel" aria-label="모바일 메뉴">
+    <div class="tc-mobilemenu__head">
+      <span class="tc-mobilemenu__title">메뉴</span>
+      <button data-close class="tc-mobilemenu__close" aria-label="닫기">×</button>
+    </div>
+    <nav class="tc-mobilemenu__links">
+      <a href="#why" data-mlink>브랜드</a>
+      <a href="#gallery" data-mlink>시공사례</a>
+      <a href="#services" data-mlink>서비스</a>
+      <a href="#process" data-mlink>진행과정</a>
+      <a href="#reviews" data-mlink>후기</a>
+      <a href="#faq" data-mlink>FAQ</a>
+    </nav>
+    <a href="tel:010-9266-9404" data-mlink data-quote-link class="tc-mobilemenu__cta">무료 견적 받기</a>
+  </aside>
 </div>
 
 <header id="top" style="position:relative; min-height:100vh; background:#1B5E20; overflow:hidden; display:flex; align-items:center;">
@@ -8288,29 +9136,38 @@
     </g>
   </svg>
 
-  <div style="position:relative; z-index:2; max-width:1200px; margin:0 auto; padding:120px 28px 80px; width:100%; display:flex; flex-wrap:wrap; align-items:center; gap:56px;">
-    <div style="flex:1 1 440px; min-width:300px;">
+  <div class="tc-wrap tc-hero-inner" style="position:relative; z-index:2; max-width:1200px; margin:0 auto; padding:120px 28px 80px; width:100%; display:flex; flex-wrap:wrap; align-items:center; gap:56px;">
+    <div class="tc-hero-col" style="flex:1 1 440px; min-width:0;">
       <div style="display:inline-flex; align-items:center; gap:9px; padding:8px 16px; border:1px solid rgba(165,214,167,0.4); border-radius:999px; background:rgba(165,214,167,0.10); margin-bottom:28px;">
         <span style="width:8px; height:8px; border-radius:50%; background:#A5D6A7; box-shadow:0 0 8px #B71C1C; animation:tc-pulse 1.8s ease-in-out infinite;"></span>
         <span style="color:#A5D6A7; font-size:.82rem; font-weight:500; letter-spacing:.04em;">독일 타나세제 MOU 공식 파트너</span>
       </div>
       <h1 style="font-family:'Noto Serif KR',serif; font-weight:700; color:#fff; font-size:clamp(2.3rem,5vw,3.6rem); line-height:1.24; letter-spacing:-0.01em; margin-bottom:24px;">세제가 달라야<br><span style="color:#E53935;">청소가 달라집니다</span></h1>
       <p style="color:rgba(255,255,255,0.62); font-size:clamp(1rem,1.4vw,1.12rem); line-height:1.8; font-weight:300; max-width:520px; margin-bottom:38px;">독일 타나세제와의 MOU 계약으로 확보한 전문 노하우와 친환경 전용 세제. 결과를 눈으로 확인하신 뒤 결제하는 수도권 프리미엄 입주청소, 타나클린입니다.</p>
-      <div style="display:flex; flex-wrap:wrap; gap:14px; margin-bottom:52px;">
+      <div class="tc-hero-actions" style="display:flex; flex-wrap:wrap; gap:14px; margin-bottom:52px;">
         <a href="tel:010-9266-9404" data-quote-link style="display:inline-flex; align-items:center; gap:9px; padding:16px 30px; border-radius:999px; background:#fff; color:#1B5E20; font-weight:700; font-size:1rem; box-shadow:0 12px 34px rgba(0,0,0,0.2);">무료 견적 받기 →</a>
         <a href="#gallery" style="display:inline-flex; align-items:center; gap:9px; padding:16px 30px; border-radius:999px; background:transparent; border:1px solid rgba(255,255,255,0.25); color:#fff; font-weight:500; font-size:1rem;">시공사례 보기</a>
       </div>
-      <div style="display:flex; flex-wrap:wrap; gap:14px 44px;">
-        <div><div style="font-family:'Noto Serif KR',serif; font-weight:700; color:#fff; font-size:2rem;"><span data-count="" data-target="2400" data-suffix="+">0</span></div><div style="color:rgba(255,255,255,0.5); font-size:.82rem; margin-top:4px;">누적 청소 건수</div></div>
-        <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.12);"></div>
-        <div><div style="font-family:'Noto Serif KR',serif; font-weight:700; color:#fff; font-size:2rem;"><span data-count="" data-target="98" data-suffix="%">0</span></div><div style="color:rgba(255,255,255,0.5); font-size:.82rem; margin-top:4px;">고객 만족도</div></div>
-        <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.12);"></div>
-        <div><div style="font-family:'Noto Serif KR',serif; font-weight:700; color:#fff; font-size:2rem;"><span data-count="" data-target="100" data-suffix="%">0</span></div><div style="color:rgba(255,255,255,0.5); font-size:.82rem; margin-top:4px;">A/S 무상보장</div></div>
+      <div class="tc-hero-stats">
+        <div class="tc-hero-stat">
+          <div class="tc-hero-stat__value"><span data-count="" data-target="2400" data-suffix="+">0</span></div>
+          <div class="tc-hero-stat__label">누적 청소 건수</div>
+        </div>
+        <div class="tc-hero-stat-divider" aria-hidden="true"></div>
+        <div class="tc-hero-stat">
+          <div class="tc-hero-stat__value"><span data-count="" data-target="98" data-suffix="%">0</span></div>
+          <div class="tc-hero-stat__label">고객 만족도</div>
+        </div>
+        <div class="tc-hero-stat-divider" aria-hidden="true"></div>
+        <div class="tc-hero-stat">
+          <div class="tc-hero-stat__value"><span data-count="" data-target="100" data-suffix="%">0</span></div>
+          <div class="tc-hero-stat__label">A/S 무상보장</div>
+        </div>
       </div>
     </div>
 
     <!-- hero slider -->
-    <div style="flex:1 1 420px; min-width:300px; position:relative;">
+    <div class="tc-hero-col tc-hero-col--visual" style="flex:1 1 420px; min-width:0; position:relative;">
       <div style="position:relative; border-radius:24px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); backdrop-filter:blur(14px); padding:18px; box-shadow:0 30px 70px rgba(0,0,0,0.4);">
         <div style="position:relative; border-radius:16px; overflow:hidden; aspect-ratio:1/1;">
           <img data-hero-slide src="assets/images/숨고_썸네일_01_브랜드.jpg" alt="타나클린 브랜드" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:1; transition:opacity .8s ease;">
@@ -8327,11 +9184,11 @@
           <span data-hero-dot style="width:22px; height:5px; border-radius:999px; background:rgba(255,255,255,0.3);"></span>
         </div>
       </div>
-      <div style="position:absolute; left:-14px; bottom:-22px; padding:12px 18px; border-radius:16px; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(16px); box-shadow:0 16px 40px rgba(0,0,0,0.35); display:flex; align-items:center; gap:12px; animation:tc-bob 3s ease-in-out infinite;">
+      <div class="tc-hero-float tc-hero-float--brand" style="position:absolute; left:-14px; bottom:-22px; padding:12px 18px; border-radius:16px; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(16px); box-shadow:0 16px 40px rgba(0,0,0,0.35); display:flex; align-items:center; gap:12px; animation:tc-bob 3s ease-in-out infinite;">
         <img src="assets/images/tana-frog-logo.png" alt="Werner & Mertz Professional" style="height:32px; width:auto; display:block;">
         <div><div style="color:#fff; font-size:.82rem; font-weight:500;">친환경 세제 사용</div><div style="color:#A5D6A7; font-size:.72rem;">타나세제 MOU</div></div>
       </div>
-      <div style="position:absolute; right:-12px; top:-20px; padding:14px 18px; border-radius:16px; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(16px); box-shadow:0 16px 40px rgba(0,0,0,0.35); display:flex; align-items:center; gap:11px; animation:tc-bob2 3.4s ease-in-out infinite;">
+      <div class="tc-hero-float tc-hero-float--rating" style="position:absolute; right:-12px; top:-20px; padding:14px 18px; border-radius:16px; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(16px); box-shadow:0 16px 40px rgba(0,0,0,0.35); display:flex; align-items:center; gap:11px; animation:tc-bob2 3.4s ease-in-out infinite;">
         <span style="color:#E53935; font-size:1rem;">★</span>
         <div><div style="color:#fff; font-size:.9rem; font-weight:700;">4.9/5.0</div><div style="color:rgba(255,255,255,0.6); font-size:.72rem;">2,400+ 후기</div></div>
       </div>
@@ -8369,7 +9226,7 @@
   </div>
 </section>
 <section id="why" style="background:#F1F8F1; padding:clamp(70px,9vw,120px) 0;">
-  <div style="max-width:1200px; margin:0 auto; padding:0 28px;">
+  <div class="tc-wrap" style="max-width:1200px; margin:0 auto; padding:0 28px;">
     <div data-reveal="" style="text-align:center; max-width:640px; margin:0 auto 60px;">
       <div style="color:#B71C1C; font-size:.85rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-bottom:16px;">Why TANA CLEAN</div>
       <h2 style="font-family:'Noto Serif KR',serif; font-weight:700; font-size:clamp(1.8rem,3.4vw,2.6rem); color:#212121; line-height:1.35; margin-bottom:18px;">기술이 다르면 결과가 다릅니다</h2>
@@ -8424,12 +9281,21 @@
           <div style="display:inline-block; padding:6px 14px; border:1px solid rgba(165,214,167,0.4); border-radius:999px; color:#A5D6A7; font-size:.78rem; font-weight:500; margin-bottom:24px; width:fit-content;">OFFICIAL MOU PARTNERSHIP</div>
           <h3 style="font-family:'Noto Serif KR',serif; font-weight:700; color:#fff; font-size:clamp(1.6rem,3vw,2.2rem); line-height:1.4; margin-bottom:18px;">독일 타나세제와 함께, <br>기술과 신뢰를 이전받다</h3>
           <p style="color:rgba(255,255,255,0.6); font-size:1.05rem; line-height:1.8; font-weight:300; margin-bottom:32px;">타나클린은 독일 타나세제와 공식 업무협약(MOU)을 체결한 파트너사입니다. 교육 이수 전문팀이 <strong style="color:rgba(255,255,255,0.85); font-weight:600;">Tana Professional · Green Care Professional</strong> 정품 세제로 시공합니다.</p>
-          <div style="display:flex; flex-wrap:wrap; gap:28px 40px;">
-            <div><div style="font-family:'Noto Serif KR',serif; font-weight:700; color:#A5D6A7; font-size:2rem;">100%</div><div style="color:rgba(255,255,255,0.55); font-size:.82rem; margin-top:4px;">친환경 세제</div></div>
-            <div style="width:1px; background:rgba(255,255,255,0.12);"></div>
-            <div><div style="font-family:'Noto Serif KR',serif; font-weight:700; color:#A5D6A7; font-size:2rem;">독점</div><div style="color:rgba(255,255,255,0.55); font-size:.82rem; margin-top:4px;">전용 세제 공급</div></div>
-            <div style="width:1px; background:rgba(255,255,255,0.12);"></div>
-            <div><div style="font-family:'Noto Serif KR',serif; font-weight:700; color:#A5D6A7; font-size:2rem;">전담</div><div style="color:rgba(255,255,255,0.55); font-size:.82rem; margin-top:4px;">팀장 배정</div></div>
+          <div class="tc-why-stats">
+            <div class="tc-why-stat">
+              <div class="tc-why-stat__value">100%</div>
+              <div class="tc-why-stat__label">친환경 세제</div>
+            </div>
+            <div class="tc-why-stat-divider" aria-hidden="true"></div>
+            <div class="tc-why-stat">
+              <div class="tc-why-stat__value">독점</div>
+              <div class="tc-why-stat__label">전용 세제 공급</div>
+            </div>
+            <div class="tc-why-stat-divider" aria-hidden="true"></div>
+            <div class="tc-why-stat">
+              <div class="tc-why-stat__value">전담</div>
+              <div class="tc-why-stat__label">팀장 배정</div>
+            </div>
           </div>
         </div>
         <div style="flex:1 1 360px; position:relative; min-height:300px;">
@@ -8487,61 +9353,67 @@
   </div>
 </section>
 
+<link rel="stylesheet" href="modules/services/services.css">
+
 <section id="services" style="background:#F1F8F1; padding:clamp(70px,9vw,120px) 0;">
   <div style="max-width:1200px; margin:0 auto; padding:0 28px;">
     <div data-reveal="" style="text-align:center; max-width:620px; margin:0 auto 58px;">
       <div style="color:#B71C1C; font-size:.85rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-bottom:16px;">Services</div>
       <h2 style="font-family:'Noto Serif KR',serif; font-weight:700; font-size:clamp(1.8rem,3.4vw,2.6rem); color:#212121; line-height:1.35;">상황에 맞는 프리미엄 청소</h2>
     </div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; align-items:stretch;">
-      <div data-reveal="" style="background:#fff; border:1px solid #E3E8E3; border-radius:22px; overflow:hidden; display:flex; flex-direction:column;">
-        <div style="width:100%; height:200px; overflow:hidden;">
-          <img src="assets/images/service-new-apt.png" alt="신축 입주청소" style="width:100%; height:100%; object-fit:cover;">
+    <div class="services-grid" data-services-grid>
+      <article data-service-card data-reveal class="service-card">
+        <div class="service-card__bar"></div>
+        <span class="service-card__badge">선택됨</span>
+        <div class="service-card__img-wrap">
+          <img src="assets/images/service-new-apt.png" alt="신축 입주청소">
         </div>
-        <div style="padding:32px 32px 40px; display:flex; flex-direction:column; flex:1;">
-          <h3 style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:1.35rem; margin-bottom:14px;">신축 입주청소</h3>
-          <p style="color:#6B6B6B; font-size:.95rem; line-height:1.8; font-weight:300; margin-bottom:24px; flex:1;">새 아파트 입주 전 건자재 분진·마감재 오염물을 전문 세제로 완벽 제거합니다.</p>
-          <ul style="list-style:none; display:flex; flex-direction:column; gap:11px;">
-            <li style="display:flex; gap:10px; color:#212121; font-size:.92rem;"><span style="color:#B71C1C;">✓</span> 건자재 분진 제거</li>
-            <li style="display:flex; gap:10px; color:#212121; font-size:.92rem;"><span style="color:#B71C1C;">✓</span> 새시·유리 광택</li>
-            <li style="display:flex; gap:10px; color:#212121; font-size:.92rem;"><span style="color:#B71C1C;">✓</span> 주방·욕실 살균</li>
+        <div class="service-card__body">
+          <h3 class="service-card__title">신축 입주청소</h3>
+          <p class="service-card__desc">새 아파트 입주 전 건자재 분진·마감재 오염물을 전문 세제로 완벽 제거합니다.</p>
+          <ul class="service-card__list">
+            <li><span class="service-card__check">✓</span> 건자재 분진 제거</li>
+            <li><span class="service-card__check">✓</span> 새시·유리 광택</li>
+            <li><span class="service-card__check">✓</span> 주방·욕실 살균</li>
           </ul>
         </div>
-      </div>
-      <div data-reveal="" style="background:#1B5E20; border-radius:22px; position:relative; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 30px 60px rgba(27,94,32,0.25);">
-        <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#B71C1C,#E53935); z-index:2;"></div>
-        <div style="position:absolute; top:18px; right:20px; padding:5px 12px; border-radius:999px; background:#B71C1C; color:#fff; font-size:.72rem; font-weight:700; z-index:2;">추천</div>
-        <div style="width:100%; height:200px; overflow:hidden; position:relative;">
-          <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(27,94,32,0) 0%, rgba(27,94,32,1) 100%); z-index:1;"></div>
-          <img src="assets/images/service-move-out.png" alt="이사청소" style="width:100%; height:100%; object-fit:cover;">
+      </article>
+      <article data-service-card data-reveal class="service-card">
+        <div class="service-card__bar"></div>
+        <span class="service-card__badge">추천</span>
+        <div class="service-card__img-wrap">
+          <img src="assets/images/service-move-out.png" alt="이사청소">
         </div>
-        <div style="padding:12px 32px 44px; display:flex; flex-direction:column; flex:1; position:relative; z-index:2;">
-          <h3 style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:1.35rem; color:#fff; margin-bottom:14px;">이사청소</h3>
-          <p style="color:rgba(255,255,255,0.6); font-size:.95rem; line-height:1.8; font-weight:300; margin-bottom:24px; flex:1;">이사 전·후 생활 때와 묵은 오염을 말끔히. 당일 일정 조율도 가능합니다.</p>
-          <ul style="list-style:none; display:flex; flex-direction:column; gap:11px;">
-            <li style="display:flex; gap:10px; color:#fff; font-size:.92rem;"><span style="color:#A5D6A7;">✓</span> 생활 오염 집중 제거</li>
-            <li style="display:flex; gap:10px; color:#fff; font-size:.92rem;"><span style="color:#A5D6A7;">✓</span> 주방 기름때 분해</li>
-            <li style="display:flex; gap:10px; color:#fff; font-size:.92rem;"><span style="color:#A5D6A7;">✓</span> 이사 당일 대응</li>
+        <div class="service-card__body">
+          <h3 class="service-card__title">이사청소</h3>
+          <p class="service-card__desc">이사 전·후 생활 때와 묵은 오염을 말끔히. 당일 일정 조율도 가능합니다.</p>
+          <ul class="service-card__list">
+            <li><span class="service-card__check">✓</span> 생활 오염 집중 제거</li>
+            <li><span class="service-card__check">✓</span> 주방 기름때 분해</li>
+            <li><span class="service-card__check">✓</span> 이사 당일 대응</li>
           </ul>
         </div>
-      </div>
-      <div data-reveal="" style="background:#fff; border:1px solid #E3E8E3; border-radius:22px; overflow:hidden; display:flex; flex-direction:column;">
-        <div style="width:100%; height:200px; overflow:hidden;">
-          <img src="assets/images/service-premium.png" alt="프리미엄 패키지" style="width:100%; height:100%; object-fit:cover;">
+      </article>
+      <article data-service-card data-reveal class="service-card">
+        <div class="service-card__bar"></div>
+        <span class="service-card__badge">프리미엄</span>
+        <div class="service-card__img-wrap">
+          <img src="assets/images/service-premium.png" alt="프리미엄 패키지">
         </div>
-        <div style="padding:32px 32px 40px; display:flex; flex-direction:column; flex:1;">
-          <h3 style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:1.35rem; margin-bottom:14px;">프리미엄 패키지</h3>
-          <p style="color:#6B6B6B; font-size:.95rem; line-height:1.8; font-weight:300; margin-bottom:24px; flex:1;">입주청소 + 코팅 + 살균까지, 새 집을 오래 유지하는 올인원 프리미엄 케어.</p>
-          <ul style="list-style:none; display:flex; flex-direction:column; gap:11px;">
-            <li style="display:flex; gap:10px; color:#212121; font-size:.92rem;"><span style="color:#B71C1C;">✓</span> 전문 코팅 시공</li>
-            <li style="display:flex; gap:10px; color:#212121; font-size:.92rem;"><span style="color:#B71C1C;">✓</span> 항균·탈취 케어</li>
-            <li style="display:flex; gap:10px; color:#212121; font-size:.92rem;"><span style="color:#B71C1C;">✓</span> 정기 A/S 방문</li>
+        <div class="service-card__body">
+          <h3 class="service-card__title">프리미엄 패키지</h3>
+          <p class="service-card__desc">입주청소 + 코팅 + 살균까지, 새 집을 오래 유지하는 올인원 프리미엄 케어.</p>
+          <ul class="service-card__list">
+            <li><span class="service-card__check">✓</span> 전문 코팅 시공</li>
+            <li><span class="service-card__check">✓</span> 항균·탈취 케어</li>
+            <li><span class="service-card__check">✓</span> 정기 A/S 방문</li>
           </ul>
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </section>
+
 <section id="gallery" style="background:#1B5E20; padding:clamp(70px,9vw,120px) 0; position:relative; overflow:hidden;">
   <div style="position:absolute; top:-100px; left:-80px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle,rgba(165,214,167,0.10),transparent 70%);"></div>
   <div style="max-width:1200px; margin:0 auto; padding:0 28px; position:relative;">
@@ -8599,49 +9471,49 @@
   </div>
 </section>
 <section id="process" style="background:#F1F8F1; padding:clamp(70px,9vw,120px) 0;">
-  <div style="max-width:1200px; margin:0 auto; padding:0 28px;">
+  <div class="tc-wrap" style="max-width:1200px; margin:0 auto; padding:0 28px;">
     <div data-reveal="" style="text-align:center; max-width:620px; margin:0 auto 60px;">
       <div style="color:#B71C1C; font-size:.85rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-bottom:16px;">Process</div>
       <h2 style="font-family:'Noto Serif KR',serif; font-weight:700; font-size:clamp(1.8rem,3.4vw,2.6rem); color:#212121; line-height:1.35;">체계적인 7단계 진행</h2>
     </div>
-    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:14px;">
-      <div data-reveal="" style="flex:1 1 150px; max-width:220px; min-width:140px; text-align:center; background:#fff; border:1px solid #E3E8E3; border-radius:18px; padding:26px 16px;">
+    <div class="tc-process-grid">
+      <div data-reveal="" class="tc-process-step" style="background:#fff; border:1px solid #E3E8E3;">
         <div style="font-size:1.7rem; margin-bottom:12px;">📞</div>
         <div style="color:#B71C1C; font-family:'Noto Serif KR',serif; font-weight:700; font-size:.85rem; margin-bottom:6px;">STEP 01</div>
         <div style="font-weight:600; font-size:1rem; margin-bottom:6px;">문의·상담</div>
         <p style="color:#6B6B6B; font-size:.82rem; line-height:1.6; font-weight:300;">전화·카카오로 편하게 문의</p>
       </div>
-      <div data-reveal="" style="flex:1 1 150px; max-width:220px; min-width:140px; text-align:center; background:#fff; border:1px solid #E3E8E3; border-radius:18px; padding:26px 16px;">
+      <div data-reveal="" class="tc-process-step" style="background:#fff; border:1px solid #E3E8E3;">
         <div style="font-size:1.7rem; margin-bottom:12px;">📋</div>
         <div style="color:#B71C1C; font-family:'Noto Serif KR',serif; font-weight:700; font-size:.85rem; margin-bottom:6px;">STEP 02</div>
         <div style="font-weight:600; font-size:1rem; margin-bottom:6px;">무료 견적</div>
         <p style="color:#6B6B6B; font-size:.82rem; line-height:1.6; font-weight:300;">평형·상태별 투명 견적</p>
       </div>
-      <div data-reveal="" style="flex:1 1 150px; max-width:220px; min-width:140px; text-align:center; background:#fff; border:1px solid #E3E8E3; border-radius:18px; padding:26px 16px;">
+      <div data-reveal="" class="tc-process-step" style="background:#fff; border:1px solid #E3E8E3;">
         <div style="font-size:1.7rem; margin-bottom:12px;">🗓️</div>
         <div style="color:#B71C1C; font-family:'Noto Serif KR',serif; font-weight:700; font-size:.85rem; margin-bottom:6px;">STEP 03</div>
         <div style="font-weight:600; font-size:1rem; margin-bottom:6px;">일정 확정</div>
         <p style="color:#6B6B6B; font-size:.82rem; line-height:1.6; font-weight:300;">입주 일정 맞춤 조율</p>
       </div>
-      <div data-reveal="" style="flex:1 1 150px; max-width:220px; min-width:140px; text-align:center; background:#fff; border:1px solid #E3E8E3; border-radius:18px; padding:26px 16px;">
+      <div data-reveal="" class="tc-process-step" style="background:#fff; border:1px solid #E3E8E3;">
         <div style="font-size:1.7rem; margin-bottom:12px;">👷</div>
         <div style="color:#B71C1C; font-family:'Noto Serif KR',serif; font-weight:700; font-size:.85rem; margin-bottom:6px;">STEP 04</div>
         <div style="font-weight:600; font-size:1rem; margin-bottom:6px;">전담팀 배정</div>
         <p style="color:#6B6B6B; font-size:.82rem; line-height:1.6; font-weight:300;">교육받은 팀장 배정</p>
       </div>
-      <div data-reveal="" style="flex:1 1 150px; max-width:220px; min-width:140px; text-align:center; background:#fff; border:1px solid #E3E8E3; border-radius:18px; padding:26px 16px;">
+      <div data-reveal="" class="tc-process-step" style="background:#fff; border:1px solid #E3E8E3;">
         <div style="font-size:1.7rem; margin-bottom:12px;">🧽</div>
         <div style="color:#B71C1C; font-family:'Noto Serif KR',serif; font-weight:700; font-size:.85rem; margin-bottom:6px;">STEP 05</div>
         <div style="font-weight:600; font-size:1rem; margin-bottom:6px;">현장 시공</div>
         <p style="color:#6B6B6B; font-size:.82rem; line-height:1.6; font-weight:300;">타나세제 전용 세제 시공</p>
       </div>
-      <div data-reveal="" style="flex:1 1 150px; max-width:220px; min-width:140px; text-align:center; background:#fff; border:1px solid #E3E8E3; border-radius:18px; padding:26px 16px;">
+      <div data-reveal="" class="tc-process-step" style="background:#fff; border:1px solid #E3E8E3;">
         <div style="font-size:1.7rem; margin-bottom:12px;">🔍</div>
         <div style="color:#B71C1C; font-family:'Noto Serif KR',serif; font-weight:700; font-size:.85rem; margin-bottom:6px;">STEP 06</div>
         <div style="font-weight:600; font-size:1rem; margin-bottom:6px;">고객 검수</div>
         <p style="color:#6B6B6B; font-size:.82rem; line-height:1.6; font-weight:300;">함께 확인하는 마감 검수</p>
       </div>
-      <div data-reveal="" style="flex:1 1 150px; max-width:220px; min-width:140px; text-align:center; background:#1B5E20; border:1px solid #1B5E20; border-radius:18px; padding:26px 16px;">
+      <div data-reveal="" class="tc-process-step" style="background:#1B5E20; border:1px solid #1B5E20;">
         <div style="font-size:1.7rem; margin-bottom:12px;">💳</div>
         <div style="color:#A5D6A7; font-family:'Noto Serif KR',serif; font-weight:700; font-size:.85rem; margin-bottom:6px;">STEP 07</div>
         <div style="font-weight:600; font-size:1rem; margin-bottom:6px; color:#fff;">결제·A/S</div>
@@ -8650,6 +9522,7 @@
     </div>
   </div>
 </section>
+
 <section style="background:#1B5E20; padding:clamp(70px,9vw,120px) 0; position:relative; overflow:hidden;">
   <div style="position:absolute; top:-100px; right:-80px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle,rgba(165,214,167,0.10),transparent 70%);"></div>
   <div style="max-width:1080px; margin:0 auto; padding:0 28px; position:relative; display:flex; flex-wrap:wrap; gap:56px; align-items:center;">
@@ -8849,10 +9722,10 @@
     </div>
   </div>
 </section>
-<footer style="background:#1B5E20; padding:clamp(56px,7vw,88px) 0 40px;">
-  <div style="max-width:1200px; margin:0 auto; padding:0 28px;">
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:40px; padding-bottom:44px; border-bottom:1px solid rgba(255,255,255,0.1);">
-      <div>
+<footer id="footer" class="tc-footer" style="background:#1B5E20; padding:clamp(56px,7vw,88px) 0 40px;">
+  <div class="tc-wrap tc-footer-wrap" style="max-width:1200px; margin:0 auto; padding:0 28px;">
+    <div class="tc-footer-grid">
+      <div class="tc-footer-brand">
         <img src="assets/images/5d1408ea-4fa4-4c70-ac0a-457f30cdb8bd.png" alt="타나클린 입주청소 전문" style="height:56px; width:auto; display:block; margin-bottom:20px;">
         <p style="color:rgba(255,255,255,0.5); font-size:.9rem; line-height:1.8; font-weight:300;">독일 타나세제 MOU 공식 파트너<br>수도권 프리미엄 입주청소 전문 브랜드</p>
         <div class="tana-partner-logos tana-partner-logos--sm" style="margin-top:18px;">
@@ -8862,30 +9735,30 @@
           <p class="tana-partner-logos__caption">교육 이수 전문팀 · 정품 세제 사용</p>
         </div>
       </div>
-      <div>
-        <div style="color:#fff; font-weight:600; font-size:.95rem; margin-bottom:18px;">서비스</div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <a href="#services" style="color:rgba(255,255,255,0.55); font-size:.9rem;">신축 입주청소</a>
-          <a href="#services" style="color:rgba(255,255,255,0.55); font-size:.9rem;">이사청소</a>
-          <a href="#services" style="color:rgba(255,255,255,0.55); font-size:.9rem;">프리미엄 패키지</a>
+      <div class="tc-footer-col">
+        <div class="tc-footer-col__title">서비스</div>
+        <div class="tc-footer-col__links">
+          <a href="#services">신축 입주청소</a>
+          <a href="#services">이사청소</a>
+          <a href="#services">프리미엄 패키지</a>
         </div>
       </div>
-      <div>
-        <div style="color:#fff; font-weight:600; font-size:.95rem; margin-bottom:18px;">바로가기</div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <a href="#gallery" style="color:rgba(255,255,255,0.55); font-size:.9rem;">시공사례</a>
-          <a href="#process" style="color:rgba(255,255,255,0.55); font-size:.9rem;">진행 과정</a>
-          <a href="#reviews" style="color:rgba(255,255,255,0.55); font-size:.9rem;">고객 후기</a>
-          <a href="#faq" style="color:rgba(255,255,255,0.55); font-size:.9rem;">자주 묻는 질문</a>
+      <div class="tc-footer-col">
+        <div class="tc-footer-col__title">바로가기</div>
+        <div class="tc-footer-col__links">
+          <a href="#gallery">시공사례</a>
+          <a href="#process">진행 과정</a>
+          <a href="#reviews">고객 후기</a>
+          <a href="#faq">자주 묻는 질문</a>
         </div>
       </div>
-      <div>
-        <div style="color:#fff; font-weight:600; font-size:.95rem; margin-bottom:18px;">고객센터</div>
-        <a href="tel:010-9266-9404" style="color:#A5D6A7; font-family:'Noto Serif KR',serif; font-weight:700; font-size:1.3rem;">010-9266-9404</a>
-        <p style="color:rgba(255,255,255,0.5); font-size:.84rem; line-height:1.8; font-weight:300; margin-top:12px;">평일 08:00–20:00<br>주말·공휴일 09:00–18:00</p>
+      <div class="tc-footer-col tc-footer-col--contact">
+        <div class="tc-footer-col__title">고객센터</div>
+        <a href="tel:010-9266-9404" class="tc-footer-phone">010-9266-9404</a>
+        <p class="tc-footer-hours">평일 08:00–20:00<br>주말·공휴일 09:00–18:00</p>
       </div>
     </div>
-    <div style="padding-top:28px; color:rgba(255,255,255,0.4); font-size:.8rem; line-height:1.9; font-weight:300;">
+    <div class="tc-footer-legal">
       <p>상호: 타나클린 &nbsp;|&nbsp; 대표: 이민숙 &nbsp;|&nbsp; 개업: 2026.06.12 &nbsp;|&nbsp; 사업자등록번호: 571-20-02492</p>
       <p>주소: 인천광역시 미추홀구 수봉로 146-1, 2층 3호(주안동)</p>
       <p>업태: 사업시설 관리, 사업지원 및 임대 서비스업 &nbsp;|&nbsp; 종목: 건축물 일반 청소업</p>
@@ -8899,6 +9772,7 @@
 <div data-mobilebar="" style="display:none; position:fixed; left:0; right:0; bottom:0; z-index:901; background:#1B5E20; border-top:1px solid rgba(165,214,167,0.3); padding:12px 16px calc(12px + env(safe-area-inset-bottom)); gap:10px;">
   <a href="tel:010-9266-9404" data-quote-link style="flex:1; text-align:center; padding:14px; border-radius:12px; background:#fff; color:#1B5E20; font-weight:700; font-size:.98rem;">무료 견적 받기</a>
 </div>
+
 <a data-floatcta href="tel:010-9266-9404" data-quote-link style="position:fixed; right:22px; bottom:22px; z-index:900; width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg,#1B5E20,#2E7D32); display:flex; align-items:center; justify-content:center; font-size:1.5rem; box-shadow:0 12px 30px rgba(27,94,32,0.4); transition:transform .25s ease;">📋</a>
 
 <div data-mobilebar style="display:none; position:fixed; left:0; right:0; bottom:0; z-index:901; background:#1B5E20; border-top:1px solid rgba(165,214,167,0.3); padding:12px 16px calc(12px + env(safe-area-inset-bottom)); gap:10px;">
@@ -8941,18 +9815,26 @@
   const menu = $('[data-mobilemenu]');
   const openMenu = () => {
     if (!menu) return;
-    menu.style.display = 'flex';
-    requestAnimationFrame(() => { menu.style.opacity = '1'; });
+    menu.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => {
+      menu.classList.add('is-open');
+    });
   };
   const closeMenu = () => {
     if (!menu) return;
-    menu.style.opacity = '0';
-    setTimeout(() => { menu.style.display = 'none'; }, 350);
+    menu.classList.remove('is-open');
+    setTimeout(() => {
+      menu.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 320);
   };
   const burger = $('[data-burger]');
   if (burger) burger.addEventListener('click', openMenu);
   const closeBtn = $('[data-close]');
   if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  const backdrop = $('[data-mobilemenu-backdrop]');
+  if (backdrop) backdrop.addEventListener('click', closeMenu);
   $$('[data-mlink]').forEach((a) => a.addEventListener('click', closeMenu));
 }
 
@@ -9113,6 +9995,48 @@ function initAnimations() {
   $$('[data-bar]').forEach((el) => barObs.observe(el));
 }
 
+const ROTATE_MS = 3500;
+
+function initServicesHighlight() {
+  const cards = [...document.querySelectorAll('[data-service-card]')];
+  if (!cards.length) return;
+
+  let index = 0;
+  let timer = null;
+
+  const setActive = (i) => {
+    cards.forEach((card, idx) => {
+      card.classList.toggle('is-active', idx === i);
+    });
+  };
+
+  const next = () => {
+    index = (index + 1) % cards.length;
+    setActive(index);
+  };
+
+  const start = () => {
+    stop();
+    timer = setInterval(next, ROTATE_MS);
+  };
+
+  const stop = () => {
+    if (timer) clearInterval(timer);
+    timer = null;
+  };
+
+  setActive(index);
+  start();
+
+  cards.forEach((card, idx) => {
+    card.addEventListener('mouseenter', () => {
+      stop();
+      setActive(idx);
+    });
+    card.addEventListener('mouseleave', start);
+  });
+}
+
 function initQuoteLinks() {
   var url = "https://www.cbiseo.com/contact?tenant=sk&brand=tanaclean";
   document.querySelectorAll('[data-quote-link]').forEach(function(el) {
@@ -9127,6 +10051,6 @@ function initQuoteLinks() {
     }
   });
 }
-initNav(); initHeroSlider(); initReviews(); initFaq(); initAnimations(); initQuoteLinks();</script>
+initNav(); initHeroSlider(); initReviews(); initFaq(); initAnimations(); initQuoteLinks(); initServicesHighlight();</script>
 </body>
 </html>

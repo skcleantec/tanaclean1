@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="modules/nav/nav.css">
 
 <nav data-nav style="position:fixed; top:0; left:0; right:0; z-index:1000; transition:background .4s ease, box-shadow .4s ease, padding .3s ease; padding:16px 0;">
-  <div style="max-width:1200px; margin:0 auto; padding:0 28px; display:flex; align-items:center; justify-content:space-between;">
-    <a href="#top" style="display:flex; align-items:center;">
+  <div class="tc-wrap tc-nav-inner" style="max-width:1200px; margin:0 auto; padding:0 28px; display:flex; align-items:center; justify-content:space-between;">
+    <a href="#top" class="tc-nav-logo" style="display:flex; align-items:center; min-width:0;">
       <img src="assets/images/5d1408ea-4fa4-4c70-ac0a-457f30cdb8bd.png" alt="타나클린 입주청소 전문" style="height:46px; width:auto; display:block;">
     </a>
     <div data-navlinks style="display:flex; align-items:center; gap:32px;">
@@ -14,7 +14,7 @@
       <a href="#faq" data-navlink>FAQ</a>
       <a href="tel:010-9266-9404" data-nav-cta data-quote-link>무료 견적 받기</a>
     </div>
-    <button data-burger aria-label="메뉴" style="display:none; flex-direction:column; gap:5px; background:none; border:0; cursor:pointer; padding:8px;">
+    <button data-burger aria-label="메뉴" style="display:none; flex-direction:column; gap:5px; background:none; border:0; cursor:pointer; padding:8px; flex-shrink:0;">
       <span style="width:24px; height:2px; border-radius:2px;"></span>
       <span style="width:24px; height:2px; border-radius:2px;"></span>
       <span style="width:24px; height:2px; border-radius:2px;"></span>
@@ -22,13 +22,21 @@
   </div>
 </nav>
 
-<div data-mobilemenu style="display:none; position:fixed; inset:0; z-index:1001; background:rgba(27,94,32,0.98); backdrop-filter:blur(20px); flex-direction:column; align-items:center; justify-content:center; gap:8px; opacity:0; transition:opacity .35s ease;">
-  <button data-close aria-label="닫기" style="position:absolute; top:26px; right:26px; background:none; border:0; color:#fff; font-size:2rem; cursor:pointer; line-height:1;">×</button>
-  <a href="#why" data-mlink style="color:#fff; font-family:'Noto Serif KR',serif; font-size:1.6rem; padding:12px;">브랜드</a>
-  <a href="#gallery" data-mlink style="color:#fff; font-family:'Noto Serif KR',serif; font-size:1.6rem; padding:12px;">시공사례</a>
-  <a href="#services" data-mlink style="color:#fff; font-family:'Noto Serif KR',serif; font-size:1.6rem; padding:12px;">서비스</a>
-  <a href="#process" data-mlink style="color:#fff; font-family:'Noto Serif KR',serif; font-size:1.6rem; padding:12px;">진행과정</a>
-  <a href="#reviews" data-mlink style="color:#fff; font-family:'Noto Serif KR',serif; font-size:1.6rem; padding:12px;">후기</a>
-  <a href="#faq" data-mlink style="color:#fff; font-family:'Noto Serif KR',serif; font-size:1.6rem; padding:12px;">FAQ</a>
-  <a href="tel:010-9266-9404" data-mlink data-quote-link style="margin-top:18px; padding:14px 34px; border-radius:999px; background:#fff; color:#1B5E20; font-weight:700; font-size:1.05rem;">무료 견적 받기</a>
+<div data-mobilemenu class="tc-mobilemenu">
+  <div class="tc-mobilemenu__backdrop" data-mobilemenu-backdrop aria-hidden="true"></div>
+  <aside class="tc-mobilemenu__panel" aria-label="모바일 메뉴">
+    <div class="tc-mobilemenu__head">
+      <span class="tc-mobilemenu__title">메뉴</span>
+      <button data-close class="tc-mobilemenu__close" aria-label="닫기">×</button>
+    </div>
+    <nav class="tc-mobilemenu__links">
+      <a href="#why" data-mlink>브랜드</a>
+      <a href="#gallery" data-mlink>시공사례</a>
+      <a href="#services" data-mlink>서비스</a>
+      <a href="#process" data-mlink>진행과정</a>
+      <a href="#reviews" data-mlink>후기</a>
+      <a href="#faq" data-mlink>FAQ</a>
+    </nav>
+    <a href="tel:010-9266-9404" data-mlink data-quote-link class="tc-mobilemenu__cta">무료 견적 받기</a>
+  </aside>
 </div>

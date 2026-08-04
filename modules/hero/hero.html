@@ -13,29 +13,38 @@
     </g>
   </svg>
 
-  <div style="position:relative; z-index:2; max-width:1200px; margin:0 auto; padding:120px 28px 80px; width:100%; display:flex; flex-wrap:wrap; align-items:center; gap:56px;">
-    <div style="flex:1 1 440px; min-width:300px;">
+  <div class="tc-wrap tc-hero-inner" style="position:relative; z-index:2; max-width:1200px; margin:0 auto; padding:120px 28px 80px; width:100%; display:flex; flex-wrap:wrap; align-items:center; gap:56px;">
+    <div class="tc-hero-col" style="flex:1 1 440px; min-width:0;">
       <div style="display:inline-flex; align-items:center; gap:9px; padding:8px 16px; border:1px solid rgba(165,214,167,0.4); border-radius:999px; background:rgba(165,214,167,0.10); margin-bottom:28px;">
         <span style="width:8px; height:8px; border-radius:50%; background:#A5D6A7; box-shadow:0 0 8px #B71C1C; animation:tc-pulse 1.8s ease-in-out infinite;"></span>
         <span style="color:#A5D6A7; font-size:.82rem; font-weight:500; letter-spacing:.04em;">독일 타나세제 MOU 공식 파트너</span>
       </div>
       <h1 style="font-family:'Noto Serif KR',serif; font-weight:700; color:#fff; font-size:clamp(2.3rem,5vw,3.6rem); line-height:1.24; letter-spacing:-0.01em; margin-bottom:24px;">세제가 달라야<br><span style="color:#E53935;">청소가 달라집니다</span></h1>
       <p style="color:rgba(255,255,255,0.62); font-size:clamp(1rem,1.4vw,1.12rem); line-height:1.8; font-weight:300; max-width:520px; margin-bottom:38px;">독일 타나세제와의 MOU 계약으로 확보한 전문 노하우와 친환경 전용 세제. 결과를 눈으로 확인하신 뒤 결제하는 수도권 프리미엄 입주청소, 타나클린입니다.</p>
-      <div style="display:flex; flex-wrap:wrap; gap:14px; margin-bottom:52px;">
+      <div class="tc-hero-actions" style="display:flex; flex-wrap:wrap; gap:14px; margin-bottom:52px;">
         <a href="tel:010-9266-9404" data-quote-link style="display:inline-flex; align-items:center; gap:9px; padding:16px 30px; border-radius:999px; background:#fff; color:#1B5E20; font-weight:700; font-size:1rem; box-shadow:0 12px 34px rgba(0,0,0,0.2);">무료 견적 받기 →</a>
         <a href="#gallery" style="display:inline-flex; align-items:center; gap:9px; padding:16px 30px; border-radius:999px; background:transparent; border:1px solid rgba(255,255,255,0.25); color:#fff; font-weight:500; font-size:1rem;">시공사례 보기</a>
       </div>
-      <div style="display:flex; flex-wrap:wrap; gap:14px 44px;">
-        <div><div style="font-family:'Noto Serif KR',serif; font-weight:700; color:#fff; font-size:2rem;"><span data-count="" data-target="2400" data-suffix="+">0</span></div><div style="color:rgba(255,255,255,0.5); font-size:.82rem; margin-top:4px;">누적 청소 건수</div></div>
-        <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.12);"></div>
-        <div><div style="font-family:'Noto Serif KR',serif; font-weight:700; color:#fff; font-size:2rem;"><span data-count="" data-target="98" data-suffix="%">0</span></div><div style="color:rgba(255,255,255,0.5); font-size:.82rem; margin-top:4px;">고객 만족도</div></div>
-        <div style="width:1px; align-self:stretch; background:rgba(255,255,255,0.12);"></div>
-        <div><div style="font-family:'Noto Serif KR',serif; font-weight:700; color:#fff; font-size:2rem;"><span data-count="" data-target="100" data-suffix="%">0</span></div><div style="color:rgba(255,255,255,0.5); font-size:.82rem; margin-top:4px;">A/S 무상보장</div></div>
+      <div class="tc-hero-stats">
+        <div class="tc-hero-stat">
+          <div class="tc-hero-stat__value"><span data-count="" data-target="2400" data-suffix="+">0</span></div>
+          <div class="tc-hero-stat__label">누적 청소 건수</div>
+        </div>
+        <div class="tc-hero-stat-divider" aria-hidden="true"></div>
+        <div class="tc-hero-stat">
+          <div class="tc-hero-stat__value"><span data-count="" data-target="98" data-suffix="%">0</span></div>
+          <div class="tc-hero-stat__label">고객 만족도</div>
+        </div>
+        <div class="tc-hero-stat-divider" aria-hidden="true"></div>
+        <div class="tc-hero-stat">
+          <div class="tc-hero-stat__value"><span data-count="" data-target="100" data-suffix="%">0</span></div>
+          <div class="tc-hero-stat__label">A/S 무상보장</div>
+        </div>
       </div>
     </div>
 
     <!-- hero slider -->
-    <div style="flex:1 1 420px; min-width:300px; position:relative;">
+    <div class="tc-hero-col tc-hero-col--visual" style="flex:1 1 420px; min-width:0; position:relative;">
       <div style="position:relative; border-radius:24px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); backdrop-filter:blur(14px); padding:18px; box-shadow:0 30px 70px rgba(0,0,0,0.4);">
         <div style="position:relative; border-radius:16px; overflow:hidden; aspect-ratio:1/1;">
           <img data-hero-slide src="assets/images/숨고_썸네일_01_브랜드.jpg" alt="타나클린 브랜드" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:1; transition:opacity .8s ease;">
@@ -52,11 +61,11 @@
           <span data-hero-dot style="width:22px; height:5px; border-radius:999px; background:rgba(255,255,255,0.3);"></span>
         </div>
       </div>
-      <div style="position:absolute; left:-14px; bottom:-22px; padding:12px 18px; border-radius:16px; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(16px); box-shadow:0 16px 40px rgba(0,0,0,0.35); display:flex; align-items:center; gap:12px; animation:tc-bob 3s ease-in-out infinite;">
+      <div class="tc-hero-float tc-hero-float--brand" style="position:absolute; left:-14px; bottom:-22px; padding:12px 18px; border-radius:16px; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(16px); box-shadow:0 16px 40px rgba(0,0,0,0.35); display:flex; align-items:center; gap:12px; animation:tc-bob 3s ease-in-out infinite;">
         <img src="assets/images/tana-frog-logo.png" alt="Werner & Mertz Professional" style="height:32px; width:auto; display:block;">
         <div><div style="color:#fff; font-size:.82rem; font-weight:500;">친환경 세제 사용</div><div style="color:#A5D6A7; font-size:.72rem;">타나세제 MOU</div></div>
       </div>
-      <div style="position:absolute; right:-12px; top:-20px; padding:14px 18px; border-radius:16px; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(16px); box-shadow:0 16px 40px rgba(0,0,0,0.35); display:flex; align-items:center; gap:11px; animation:tc-bob2 3.4s ease-in-out infinite;">
+      <div class="tc-hero-float tc-hero-float--rating" style="position:absolute; right:-12px; top:-20px; padding:14px 18px; border-radius:16px; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(16px); box-shadow:0 16px 40px rgba(0,0,0,0.35); display:flex; align-items:center; gap:11px; animation:tc-bob2 3.4s ease-in-out infinite;">
         <span style="color:#E53935; font-size:1rem;">★</span>
         <div><div style="color:#fff; font-size:.9rem; font-weight:700;">4.9/5.0</div><div style="color:rgba(255,255,255,0.6); font-size:.72rem;">2,400+ 후기</div></div>
       </div>

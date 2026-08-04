@@ -98,6 +98,7 @@ ${read(path.join(ROOT, 'modules', 'nav', 'nav.css'))}
 ${read(path.join(ROOT, 'modules', 'trust-compare', 'trust-compare.css'))}
 ${read(path.join(ROOT, 'modules', 'services', 'services.css'))}
 ${read(path.join(ROOT, 'css', 'tana-partner.css'))}
+${read(path.join(ROOT, 'css', 'responsive.css'))}
   </style>
 </head>
 <body>

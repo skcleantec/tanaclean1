@@ -34,17 +34,25 @@ export function initNav() {
   const menu = $('[data-mobilemenu]');
   const openMenu = () => {
     if (!menu) return;
-    menu.style.display = 'flex';
-    requestAnimationFrame(() => { menu.style.opacity = '1'; });
+    menu.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => {
+      menu.classList.add('is-open');
+    });
   };
   const closeMenu = () => {
     if (!menu) return;
-    menu.style.opacity = '0';
-    setTimeout(() => { menu.style.display = 'none'; }, 350);
+    menu.classList.remove('is-open');
+    setTimeout(() => {
+      menu.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 320);
   };
   const burger = $('[data-burger]');
   if (burger) burger.addEventListener('click', openMenu);
   const closeBtn = $('[data-close]');
   if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  const backdrop = $('[data-mobilemenu-backdrop]');
+  if (backdrop) backdrop.addEventListener('click', closeMenu);
   $$('[data-mlink]').forEach((a) => a.addEventListener('click', closeMenu));
 }
